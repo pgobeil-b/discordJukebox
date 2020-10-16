@@ -16,6 +16,12 @@ for (const file of commandFiles) {
 const cooldowns = new Discord.Collection();
 
 client.on('message', message => {
+	
+	const com_catch = client.commands.get("catchsong")
+	//Detect if Rythm is playing a song
+	com_catch.execute(message);
+
+	//Check if the message has the right prefix
 	if (!message.content.startsWith(prefix)) return;
 
 	const args = message.content.slice(prefix.length).trim().split(/ +/);

@@ -18,6 +18,9 @@ const cooldowns = new Discord.Collection();
 client.on('message', message => {
 	
 	const com_catch = client.commands.get("catchsong")
+	if(com_catch !== false){
+		const namesong = com_catch
+	}
 	//Detect if Rythm is playing a song
 	com_catch.execute(message);
 
@@ -67,7 +70,12 @@ client.on('message', message => {
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
 	try {
-		command.execute(message, args);
+		if(commandName == 'score' || commandName == 'getscore'){
+			command.execute(message, args, namesong);
+			}
+			else{
+		command.execute(message, args);}
+	
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');

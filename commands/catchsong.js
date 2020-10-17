@@ -11,9 +11,8 @@ module.exports = {
 		
 		var data = require('../data.json');
 		
-		if(typeof embed.title !== 'undefined'){
+		if(typeof embed.title !== 'undefined'){ // Check if embed is the bot playing
 		if(embed.title.substring(0,11) == "Now Playing"){
-		
 		// Load database :
 		
 		// Get the song playing information :
@@ -21,16 +20,17 @@ module.exports = {
 		namesong = descr.substring((descr.indexOf("[") + 1), descr.indexOf("]"));
 		webadd = descr.substring((descr.indexOf("]") + 2),descr.indexOf("\n")-1);
 		time = descr.substring((descr.indexOf("Length")+9),descr.indexOf("Requested")-3);
+		var view = 1;
 		
 		//Check if song already in db
 		var oldsong = false;
 		for (const song of data) {
 			if(song.Name == namesong){
-				song.NbrOfView = song.NbrOfView + 1;
+				view = song.NbrOfView + 1
+				song.NbrOfView = view;
 				oldsong = true;
 			}
 			
-			console.log(song.Name);
 		}
 		if(oldsong == false){ //Add new song to the dataset :
 			data.push({
@@ -42,10 +42,11 @@ module.exports = {
 				 NbrNote : 0
 			});
 			}}
-		//console.log(data);
-		console.log(data);
+		//console.log(message.author.username);
 		
 		fs.writeFileSync('./data.json', JSON.stringify(data, null, 2));
-		}});
+		}
+		return(namesong)});
+		return(false);
 	},
 };

@@ -24,7 +24,9 @@ module.exports = {
 				 // Calcul new note
 				song.NbrNote = NbrNote;
 				song.note = note;
-				
+				message.react('🎧') ;
+				message.reply(`${song.Name}  has a current score of : ${note} . \n It has been scored ${NbrNote} times and was played ${song.NbrOfView} times.`); 
+		
 			}
 			
 		}

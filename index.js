@@ -13,16 +13,18 @@ for (const file of commandFiles) {
 }
 
 const cooldowns = new Discord.Collection();
-
+//let namesong = false;
 
 client.on('message', message => {
 	
-	const com_catch = client.commands.get("catchsong")
-	if(com_catch !== false){
-		const namesong = com_catch
+	var fun_catch = client.commands.get("catchsong");
+	var com_catch = fun_catch.execute(message);
+
+	if(com_catch != false){
+		namesong = com_catch;
 	}
+
 	//Detect if Rythm is playing a song
-	com_catch.execute(message);
 
 	//Check if the message has the right prefix
 	if (!message.content.startsWith(prefix)) return;
@@ -71,7 +73,12 @@ client.on('message', message => {
 
 	try {
 		if(commandName == 'score' || commandName == 'getscore'){
-			command.execute(message, args, namesong);
+			// Check if it is there is a songname
+			if(typeof namesong === 'string'){
+				command.execute(message, args, namesong);
+			}else{
+					message.channel.send("No song has been launched since the bot is on. Please wait or start a song.");
+				}
 			}
 			else{
 		command.execute(message, args);}
